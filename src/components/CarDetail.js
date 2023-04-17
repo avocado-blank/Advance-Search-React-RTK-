@@ -16,7 +16,7 @@ const CarDetail = () => {
       >
         8,000 results
       </Paper>
-      <Container
+      <Container/>
     </Box>
   )
 }

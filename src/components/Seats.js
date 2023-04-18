@@ -51,43 +51,43 @@ const Seats = ({ seatChecked, setSeatChecked }) => {
   //console
   return (
     <>
-      {/* {status === 'success' ? ( */}
-      <List
-        sx={{ width: '100%', bgcolor: 'white', marginTop: 2 }}
-        component="nav"
-        aria-labelledby="nested-list-subheader"
-      >
-        <ListItemButton onClick={handleClick}>
-          <ListItemText>
-            <Typography variant="h6" fontWeight={700}>
-              Number of seats
-            </Typography>
-          </ListItemText>
-          {!open ? <Typography>{seatName}</Typography> : ''}
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <Grid container spacing={3} m={2}>
-            {seats?.map((seat) => (
-              <Grid item xs={4} key={seat.id}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={seatChecked.includes(seat.name)}
-                      onChange={handleChangeCheck}
-                      value={seat.name}
-                    />
-                  }
-                  label={seat.name}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </Collapse>
-      </List>
-      {/* ) : ( */}
-      {/* <></> */}
-      {/* )} */}
+      {status === 'success' ? (
+        <List
+          sx={{ width: '100%', bgcolor: 'white', marginTop: 2 }}
+          component="nav"
+          aria-labelledby="nested-list-subheader"
+        >
+          <ListItemButton onClick={handleClick}>
+            <ListItemText>
+              <Typography variant="h6" fontWeight={700}>
+                Number of seats
+              </Typography>
+            </ListItemText>
+            {!open ? <Typography>{seatName}</Typography> : ''}
+            {open ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <Grid container spacing={3} m={2}>
+              {seats?.map((seat) => (
+                <Grid item xs={4} key={seat.id}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={seatChecked.includes(seat.name)}
+                        onChange={handleChangeCheck}
+                        value={seat.name}
+                      />
+                    }
+                    label={seat.name}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Collapse>
+        </List>
+      ) : (
+        <></>
+      )}
     </>
   )
 }

@@ -23,7 +23,7 @@ const Transmission = ({ tranmissionType, setTransmissionType }) => {
   //Hook
   useEffect(() => {
     dispatch(setTransmission(transmissionName))
-  }, [transmissionName])
+  }, [tranmissionType])
   //functions
   const handleClick = () => {
     setOpen(!open)
@@ -41,53 +41,53 @@ const Transmission = ({ tranmissionType, setTransmissionType }) => {
   console.log(tranmissionType)
   return (
     <>
-      {/* {status === 'success' ? ( */}
-      <List
-        sx={{ width: '100%', bgcolor: 'white', marginTop: 2 }}
-        component="nav"
-        aria-labelledby="nested-list-subheader"
-      >
-        <ListItemButton onClick={handleClick}>
-          <ListItemText>
-            <Typography variant="h6" fontWeight={700}>
-              Transmission
-            </Typography>
-          </ListItemText>
-          {!open ? <Typography>{transmissionName}</Typography> : ''}
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <Grid container spacing={3} m={2}>
-            <Grid item xs={4}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={tranmissionType.includes('Automatic')}
-                    onChange={handleChangeCheck}
-                    value="Automatic"
-                  />
-                }
-                label="Automatic"
-              />
+      {status === 'success' ? (
+        <List
+          sx={{ width: '100%', bgcolor: 'white', marginTop: 2 }}
+          component="nav"
+          aria-labelledby="nested-list-subheader"
+        >
+          <ListItemButton onClick={handleClick}>
+            <ListItemText>
+              <Typography variant="h6" fontWeight={700}>
+                Transmission
+              </Typography>
+            </ListItemText>
+            {!open ? <Typography>{transmissionName}</Typography> : ''}
+            {open ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <Grid container spacing={3} m={2}>
+              <Grid item xs={4}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={tranmissionType.includes('Automatic')}
+                      onChange={handleChangeCheck}
+                      value="Automatic"
+                    />
+                  }
+                  label="Automatic"
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={tranmissionType.includes('Manual')}
+                      onChange={handleChangeCheck}
+                      value="Manual"
+                    />
+                  }
+                  label="Manual"
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={4}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={tranmissionType.includes('Manual')}
-                    onChange={handleChangeCheck}
-                    value="Manual"
-                  />
-                }
-                label="Manual"
-              />
-            </Grid>
-          </Grid>
-        </Collapse>
-      </List>
-      {/* ) : ( */}
-      {/* <></> */}
-      {/* )} */}
+          </Collapse>
+        </List>
+      ) : (
+        <></>
+      )}
     </>
   )
 }

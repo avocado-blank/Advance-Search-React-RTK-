@@ -36,7 +36,7 @@ const Power = ({
   //Hook
   useEffect(() => {
     dispatch(setPower(powerName))
-  }, [powerName])
+  }, [fromValuePower, toValuePower])
 
   useEffect(() => {
     if (selectedValue === 'hp') {

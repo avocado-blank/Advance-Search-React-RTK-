@@ -1,7 +1,8 @@
-import { Box, Paper, Typography } from '@mui/material'
+import { Box, Paper } from '@mui/material'
 import React from 'react'
 
 const CarDetail = () => {
+  const { total } = useSelector((store) => store.carList)
   return (
     <Box sx={{ width: 1200, margin: '10px auto' }}>
       <Paper
@@ -14,9 +15,8 @@ const CarDetail = () => {
           position: 'sticky',
         }}
       >
-        8,000 results
+        {`${total?.total} results`}
       </Paper>
-      <Container/>
     </Box>
   )
 }

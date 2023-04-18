@@ -40,7 +40,7 @@ const Equipment = ({ equipmentChecked, setEquipmentChecked }) => {
   //Hook
   useEffect(() => {
     dispatch(setEquipment(equipmentName))
-  }, [equipmentName])
+  }, [equipmentChecked])
   //functions
   const handleClick = () => {
     setOpen(!open)
@@ -61,43 +61,43 @@ const Equipment = ({ equipmentChecked, setEquipmentChecked }) => {
   //console
   return (
     <>
-      {/* {status === 'success' ? ( */}
-      <List
-        sx={{ width: '100%', bgcolor: 'white', marginTop: 2 }}
-        component="nav"
-        aria-labelledby="nested-list-subheader"
-      >
-        <ListItemButton onClick={handleClick}>
-          <ListItemText>
-            <Typography variant="h6" fontWeight={700}>
-              Equipment
-            </Typography>
-          </ListItemText>
-          {!open ? <Typography>{equipmentName}</Typography> : ''}
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <Grid container spacing={3} m={2}>
-            {equipment?.map((equipment) => (
-              <Grid item xs={4} key={equipment.id}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={equipmentChecked.includes(equipment.name)}
-                      onChange={handleChangeCheck}
-                      value={equipment.name}
-                    />
-                  }
-                  label={equipment.name}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </Collapse>
-      </List>
-      {/* ) : ( */}
-      {/* <></> */}
-      {/* )} */}
+      {status === 'success' ? (
+        <List
+          sx={{ width: '100%', bgcolor: 'white', marginTop: 2 }}
+          component="nav"
+          aria-labelledby="nested-list-subheader"
+        >
+          <ListItemButton onClick={handleClick}>
+            <ListItemText>
+              <Typography variant="h6" fontWeight={700}>
+                Equipment
+              </Typography>
+            </ListItemText>
+            {!open ? <Typography>{equipmentName}</Typography> : ''}
+            {open ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <Grid container spacing={3} m={2}>
+              {equipment?.map((equipment) => (
+                <Grid item xs={4} key={equipment.id}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={equipmentChecked.includes(equipment.name)}
+                        onChange={handleChangeCheck}
+                        value={equipment.name}
+                      />
+                    }
+                    label={equipment.name}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Collapse>
+        </List>
+      ) : (
+        <></>
+      )}
     </>
   )
 }

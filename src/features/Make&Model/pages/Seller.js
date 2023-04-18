@@ -25,7 +25,7 @@ const Seller = ({ sellerChecked, setSellerChecked }) => {
   //Hook
   useEffect(() => {
     dispatch(setSeller(sellerName))
-  }, [sellerName])
+  }, [sellerChecked])
   useEffect(() => {
     dispatch(SellerApi())
   }, [])

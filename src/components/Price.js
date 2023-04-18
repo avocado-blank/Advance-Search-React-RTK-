@@ -56,7 +56,7 @@ const Price = ({
   //Hook
   useEffect(() => {
     dispatch(setPrice(priceName))
-  }, [priceName])
+  }, [fromValuePrice, toValuePrice])
   //functions
   const handleClick = () => {
     setOpen(!open)
@@ -100,55 +100,55 @@ const Price = ({
   // console.log(toValue)
   return (
     <>
-      {/* {status === 'success' ? ( */}
-      <List
-        sx={{ width: '100%', bgcolor: 'white', marginTop: 2 }}
-        component="nav"
-        aria-labelledby="nested-list-subheader"
-      >
-        <ListItemButton onClick={handleClick}>
-          <ListItemText>
-            <Typography variant="h6" fontWeight={700}>
-              Current Price
-            </Typography>
-          </ListItemText>
-          {!open && fromValuePrice && toValuePrice !== 'Any' ? (
-            <Typography>
-              {fromValuePrice} - {toValuePrice}
-            </Typography>
-          ) : (
-            ''
-          )}
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <Stack direction="row" spacing={2} m={2}>
-            <FormControl>
-              <Select value={fromValuePrice} onChange={handleFromChange}>
-                <MenuItem value="Any">Any</MenuItem>
-                {getFromOptions().map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl>
-              <Select value={toValuePrice} onChange={handleToChange}>
-                <MenuItem value="Any">Any</MenuItem>
-                {getToOptions().map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Stack>
-        </Collapse>
-      </List>
-      {/* ) : ( */}
-      {/* <></> */}
-      {/* )} */}
+      {status === 'success' ? (
+        <List
+          sx={{ width: '100%', bgcolor: 'white', marginTop: 2 }}
+          component="nav"
+          aria-labelledby="nested-list-subheader"
+        >
+          <ListItemButton onClick={handleClick}>
+            <ListItemText>
+              <Typography variant="h6" fontWeight={700}>
+                Current Price
+              </Typography>
+            </ListItemText>
+            {!open && fromValuePrice && toValuePrice !== 'Any' ? (
+              <Typography>
+                {fromValuePrice} - {toValuePrice}
+              </Typography>
+            ) : (
+              ''
+            )}
+            {open ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <Stack direction="row" spacing={2} m={2}>
+              <FormControl>
+                <Select value={fromValuePrice} onChange={handleFromChange}>
+                  <MenuItem value="Any">Any</MenuItem>
+                  {getFromOptions().map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl>
+                <Select value={toValuePrice} onChange={handleToChange}>
+                  <MenuItem value="Any">Any</MenuItem>
+                  {getToOptions().map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Stack>
+          </Collapse>
+        </List>
+      ) : (
+        <></>
+      )}
     </>
   )
 }

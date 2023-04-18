@@ -28,6 +28,9 @@ import CarDetail from './components/CarDetail'
 
 function App() {
   //State
+  //make & model
+  const [selectValue, setSelectValue] = useState(null)
+  const [selectModel, setSelectModel] = useState([])
   //Co2
   const [Co2firstvalue, setCo2FirstValue] = useState('')
   const [Co2secondvalue, setCo2SecondValue] = useState('')
@@ -110,10 +113,20 @@ function App() {
                     setFromValueReg={setFromValueReg}
                     setToValueReg={setToValueReg}
                     setSeatChecked={setSeatChecked}
+                    setSelectValue={setSelectValue}
+                    setSelectModel={setSelectModel}
                   />
 
-                  {/* <Car />
-        <Fuel fuelChecked={fuelChecked} setFuelChecked={setFuelChecked} /> */}
+                  <Car
+                    selectValue={selectValue}
+                    selectModel={selectModel}
+                    setSelectValue={setSelectValue}
+                    setSelectModel={setSelectModel}
+                  />
+                  <Fuel
+                    fuelChecked={fuelChecked}
+                    setFuelChecked={setFuelChecked}
+                  />
                   <Transmission
                     tranmissionType={tranmissionType}
                     setTransmissionType={setTransmissionType}
@@ -130,19 +143,22 @@ function App() {
                     setFromValueReg={setFromValueReg}
                     setToValueReg={setToValueReg}
                   />
-                  {/* <Engine
-          fromValueEngine={fromValueEngine}
-          toValueEngine={toValueEngine}
-          setFromValueEngine={setFromValueEngine}
-          setToValueEngine={setToValueEngine}
-        />
-        <Power
-          fromValuePower={fromValuePower}
-          toValuePower={toValuePower}
-          setFromValuePower={setFromValuePower}
-          setToValuePower={setToValuePower}
-        />
-        <Body bodyChecked={bodyChecked} setBodyChecked={setBodyChecked} /> */}
+                  <Engine
+                    fromValueEngine={fromValueEngine}
+                    toValueEngine={toValueEngine}
+                    setFromValueEngine={setFromValueEngine}
+                    setToValueEngine={setToValueEngine}
+                  />
+                  <Power
+                    fromValuePower={fromValuePower}
+                    toValuePower={toValuePower}
+                    setFromValuePower={setFromValuePower}
+                    setToValuePower={setToValuePower}
+                  />
+                  <Body
+                    bodyChecked={bodyChecked}
+                    setBodyChecked={setBodyChecked}
+                  />
                   <Price
                     fromValuePrice={fromValuePrice}
                     toValuePrice={toValuePrice}
@@ -165,14 +181,14 @@ function App() {
                     countryChecked={countryChecked}
                     setCountryChecked={setCountryChecked}
                   />
-                  {/* <Seller
-          sellerChecked={sellerChecked}
-          setSellerChecked={setSellerChecked}
-        />
-        <Damage
-          damageChecked={damageChecked}
-          setDamageChecked={setDamageChecked}
-        /> */}
+                  <Seller
+                    sellerChecked={sellerChecked}
+                    setSellerChecked={setSellerChecked}
+                  />
+                  <Damage
+                    damageChecked={damageChecked}
+                    setDamageChecked={setDamageChecked}
+                  />
                   <Emission
                     emissionChecked={emissionChecked}
                     setEmissionChecked={setEmissionChecked}
@@ -187,10 +203,10 @@ function App() {
                     xtimeCheckedValue={xtimeCheckedValue}
                     setXtimeCheckedValue={setXtimeCheckedValue}
                   />
-                  {/* <Auctions
-          auctionChecked={auctionChecked}
-          setAuctionChecked={setAuctionChecked}
-        /> */}
+                  <Auctions
+                    auctionChecked={auctionChecked}
+                    setAuctionChecked={setAuctionChecked}
+                  />
                   <Vat
                     vatCheckedValue={vatCheckedValue}
                     setVatCheckedValue={setVatCheckedValue}

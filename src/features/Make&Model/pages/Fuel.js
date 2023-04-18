@@ -29,7 +29,7 @@ const Fuel = ({ fuelChecked, setFuelChecked }) => {
 
   useEffect(() => {
     dispatch(setFuelType(fuelName))
-  }, [fuelName])
+  }, [fuelChecked])
 
   //functions
   const handleClick = () => {

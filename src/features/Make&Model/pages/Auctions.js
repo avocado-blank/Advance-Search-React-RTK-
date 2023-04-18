@@ -25,7 +25,7 @@ const Auction = ({ auctionChecked, setAuctionChecked }) => {
   //Hook
   useEffect(() => {
     dispatch(setAution(auctionName))
-  }, [auctionName])
+  }, [auctionChecked])
   useEffect(() => {
     dispatch(AuctionApi())
   }, [])

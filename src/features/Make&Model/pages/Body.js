@@ -28,7 +28,7 @@ const Body = ({ bodyChecked, setBodyChecked }) => {
 
   useEffect(() => {
     dispatch(setBodyType(bodyName))
-  }, [bodyName])
+  }, [bodyChecked])
 
   //functions
 

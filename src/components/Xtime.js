@@ -38,38 +38,38 @@ const Xtime = ({ xtimeCheckedValue, setXtimeCheckedValue }) => {
   }
   return (
     <>
-      {/* {status === 'success' ? ( */}
-      <List
-        sx={{ width: '100%', bgcolor: 'white', marginTop: 2 }}
-        component="nav"
-        aria-labelledby="nested-list-subheader"
-      >
-        <ListItemButton onClick={handleClick}>
-          <ListItemText>
-            <Typography variant="h6" fontWeight={700}>
-              x-Time
-            </Typography>
-          </ListItemText>
-          {!open ? <Typography>{xtimeCheckedValue}</Typography> : ''}
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <FormControlLabel
-            sx={{ margin: 2 }}
-            control={
-              <Checkbox
-                checked={checked}
-                onChange={handleChangeCheck}
-                value="Show x-Time only"
-              />
-            }
-            label="Show x-Time only"
-          />
-        </Collapse>
-      </List>
-      {/* ) : ( */}
-      {/* <></> */}
-      {/* )} */}
+      {status === 'success' ? (
+        <List
+          sx={{ width: '100%', bgcolor: 'white', marginTop: 2 }}
+          component="nav"
+          aria-labelledby="nested-list-subheader"
+        >
+          <ListItemButton onClick={handleClick}>
+            <ListItemText>
+              <Typography variant="h6" fontWeight={700}>
+                x-Time
+              </Typography>
+            </ListItemText>
+            {!open ? <Typography>{xtimeCheckedValue}</Typography> : ''}
+            {open ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <FormControlLabel
+              sx={{ margin: 2 }}
+              control={
+                <Checkbox
+                  checked={checked}
+                  onChange={handleChangeCheck}
+                  value="Show x-Time only"
+                />
+              }
+              label="Show x-Time only"
+            />
+          </Collapse>
+        </List>
+      ) : (
+        <></>
+      )}
     </>
   )
 }

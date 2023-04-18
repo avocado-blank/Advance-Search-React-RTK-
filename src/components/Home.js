@@ -25,6 +25,8 @@ const Home = ({
   setFromValueReg,
   setToValueReg,
   setSeatChecked,
+  setSelectValue,
+  setSelectModel,
 }) => {
   //function
   const handleReset = () => {
@@ -51,6 +53,8 @@ const Home = ({
     setFromValueReg('Any')
     setToValueReg('Any')
     setSeatChecked([])
+    setSelectValue(null)
+    setSelectModel([])
   }
   return (
     <Stack

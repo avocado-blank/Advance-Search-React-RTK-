@@ -18,25 +18,39 @@ import { CarMakeApi } from '../api/CarMakeApi'
 import { DetailCarApi } from '../api/DetailCarApi'
 import { CheckBoxOutlineBlankOutlined } from '@mui/icons-material'
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
+import { setMake, setModel } from '../api/CarMakeSlice'
+import { TotalApi } from '../api/TotalApi'
 
-const Car = () => {
+const Car = ({ selectModel, setSelectModel, selectValue, setSelectValue }) => {
   //Variabels
   const { cars, detail, status } = useSelector((store) => store.carList)
   const [open, setOpen] = useState(true)
-  const [selectValue, setSelectValue] = useState(null)
-  const [selectModel, setSelectModel] = useState([])
-  const displayName = selectValue?.name
+
+  let displayName
   const modelsList = detail?.models
   const icon = <CheckBoxOutlineBlankOutlined fontSize="small" />
   const checkedIcon = <CheckBoxIcon fontSize="small" />
   const dispatch = useDispatch()
+  const models = []
+  selectModel.forEach((model) => models.push(model.name))
+  const modelName = models?.join(', ')
 
   //Hook
+
+  useEffect(() => {
+    dispatch(setMake(displayName))
+    dispatch(setModel(modelName))
+  }, [selectValue, selectModel])
   useEffect(() => {
     dispatch(CarMakeApi())
   }, [])
 
   //function
+  if (selectValue) {
+    displayName = selectValue.name
+  } else {
+    displayName = ''
+  }
   const handleClick = () => {
     setOpen(!open)
   }
@@ -52,9 +66,10 @@ const Car = () => {
   }
 
   //log
-  console.log(cars)
+  // console.log(cars)
   console.log(displayName)
-  console.log(selectModel)
+  // console.log(modelName)
+
   return (
     <>
       {status === 'success' ? (

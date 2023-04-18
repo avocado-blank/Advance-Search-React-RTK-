@@ -31,7 +31,7 @@ const Engine = ({
   //Hook
   useEffect(() => {
     dispatch(setEngineSize(engineName))
-  }, [engineName])
+  }, [fromValueEngine, toValueEngine])
   useEffect(() => {
     dispatch(EngineApi())
   }, [])

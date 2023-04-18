@@ -8,6 +8,7 @@ import { EngineApi } from './EngineApi'
 import { FuelApi } from './FuelApi'
 import { SellerApi } from './SellerApi'
 import { PowerApi } from './PowerApi'
+import { TotalApi } from './TotalApi'
 
 const initialState = {
   cars: [],
@@ -19,26 +20,28 @@ const initialState = {
   damages: [],
   auctions: [],
   power: [],
+  total: [],
+  totalStatus: null,
   data: {
-    make: '',
-    model: '',
-    fuel_type: '', //done
-    transmiion: '', //done
-    body_type: '', //done
-    mileage: '', //done
-    power: '', //done
-    co2: '', //done
-    damage: '', //done
-    colour: '', //done
-    equipment: '', //done
-    emission_standard: '', //done
-    auction_type: '', //done
-    country: '', //done
-    seller: '', //done
-    x_time: '', //done
-    vat_regime: '', //done
-    price: '', //done
-    engine_size: '', //done
+    make: null,
+    model: null,
+    fuel_type: null, //done
+    transmission: null, //done
+    body_type: null, //done
+    mileage: null, //done
+    power: null, //done,
+    co2: null, //done
+    damage: null, //done
+    colour: null, //done
+    equipment: null, //done
+    emission_standard: null, //done
+    auction_type: null, //done
+    country: null, //done
+    seller: null, //done
+    x_time: null, //done
+    vat_regime: null, //done
+    price: null, //done
+    engine_size: null, //done
   },
   status: null,
 }
@@ -56,7 +59,7 @@ const CarMakeReducer = createSlice({
       state.data.fuel_type = payload
     },
     setTransmission: (state, { payload }) => {
-      state.data.transmiion = payload
+      state.data.transmission = payload
     },
     setBodyType: (state, { payload }) => {
       state.data.body_type = payload
@@ -145,6 +148,13 @@ const CarMakeReducer = createSlice({
       state.power = payload.data.value
       // console.log(payload)
     })
+    builder.addCase(TotalApi.pending, (state, { payload }) => {
+      state.totalStatus = 'pending'
+    })
+    builder.addCase(TotalApi.fulfilled, (state, { payload }) => {
+      state.totalStatus = 'success'
+      state.total = payload
+    })
   },
 })
 
@@ -167,4 +177,6 @@ export const {
   setVat,
   setPrice,
   setEngineSize,
+  setMake,
+  setModel,
 } = CarMakeReducer.actions

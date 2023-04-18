@@ -31,7 +31,7 @@ const Emission = ({ emissionChecked, setEmissionChecked }) => {
   //Hook
   useEffect(() => {
     dispatch(setEmission(emissionName))
-  }, [emissionName])
+  }, [emissionChecked])
   //functions
   const handleClick = () => {
     setOpen(!open)
@@ -52,43 +52,43 @@ const Emission = ({ emissionChecked, setEmissionChecked }) => {
   //console
   return (
     <>
-      {/* {status === 'success' ? ( */}
-      <List
-        sx={{ width: '100%', bgcolor: 'white', marginTop: 2 }}
-        component="nav"
-        aria-labelledby="nested-list-subheader"
-      >
-        <ListItemButton onClick={handleClick}>
-          <ListItemText>
-            <Typography variant="h6" fontWeight={700}>
-              Emission Standard
-            </Typography>
-          </ListItemText>
-          {!open ? <Typography>{emissionName}</Typography> : ''}
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <Grid container spacing={3} m={2}>
-            {emissions?.map((emission) => (
-              <Grid item xs={4} key={emission.id}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={emissionChecked.includes(emission.name)}
-                      onChange={handleChangeCheck}
-                      value={emission.name}
-                    />
-                  }
-                  label={emission.name}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </Collapse>
-      </List>
-      {/* ) : ( */}
-      {/* <></> */}
-      {/* )} */}
+      {status === 'success' ? (
+        <List
+          sx={{ width: '100%', bgcolor: 'white', marginTop: 2 }}
+          component="nav"
+          aria-labelledby="nested-list-subheader"
+        >
+          <ListItemButton onClick={handleClick}>
+            <ListItemText>
+              <Typography variant="h6" fontWeight={700}>
+                Emission Standard
+              </Typography>
+            </ListItemText>
+            {!open ? <Typography>{emissionName}</Typography> : ''}
+            {open ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <Grid container spacing={3} m={2}>
+              {emissions?.map((emission) => (
+                <Grid item xs={4} key={emission.id}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={emissionChecked.includes(emission.name)}
+                        onChange={handleChangeCheck}
+                        value={emission.name}
+                      />
+                    }
+                    label={emission.name}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Collapse>
+        </List>
+      ) : (
+        <></>
+      )}
     </>
   )
 }

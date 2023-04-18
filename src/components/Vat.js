@@ -38,38 +38,38 @@ const Vat = ({ vatCheckedValue, setVatCheckedValue }) => {
   }
   return (
     <>
-      {/* {status === 'success' ? ( */}
-      <List
-        sx={{ width: '100%', bgcolor: 'white', marginTop: 2 }}
-        component="nav"
-        aria-labelledby="nested-list-subheader"
-      >
-        <ListItemButton onClick={handleClick}>
-          <ListItemText>
-            <Typography variant="h6" fontWeight={700}>
-              VAT regime
-            </Typography>
-          </ListItemText>
-          {!open ? <Typography>{vatCheckedValue}</Typography> : ''}
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <FormControlLabel
-            sx={{ margin: 2 }}
-            control={
-              <Checkbox
-                checked={checked}
-                onChange={handleChangeCheck}
-                value="Show Margin Cars Only"
-              />
-            }
-            label="Show Margin Cars Only"
-          />
-        </Collapse>
-      </List>
-      {/* ) : ( */}
-      {/* <></> */}
-      {/* )} */}
+      {status === 'success' ? (
+        <List
+          sx={{ width: '100%', bgcolor: 'white', marginTop: 2 }}
+          component="nav"
+          aria-labelledby="nested-list-subheader"
+        >
+          <ListItemButton onClick={handleClick}>
+            <ListItemText>
+              <Typography variant="h6" fontWeight={700}>
+                VAT regime
+              </Typography>
+            </ListItemText>
+            {!open ? <Typography>{vatCheckedValue}</Typography> : ''}
+            {open ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <FormControlLabel
+              sx={{ margin: 2 }}
+              control={
+                <Checkbox
+                  checked={checked}
+                  onChange={handleChangeCheck}
+                  value="Show Margin Cars Only"
+                />
+              }
+              label="Show Margin Cars Only"
+            />
+          </Collapse>
+        </List>
+      ) : (
+        <></>
+      )}
     </>
   )
 }

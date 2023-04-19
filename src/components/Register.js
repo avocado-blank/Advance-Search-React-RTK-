@@ -39,15 +39,16 @@ const Register = () => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    if (phone.length > 11 || phone.length < 10) {
-      setAlert(true)
-    } else {
+    if (phone.length <= 11 && phone.length > 6 && Number.isInteger(phone)) {
       dispatch(RegisterUserApi(userdata))
       setAlert(false)
+    } else {
+      setAlert(true)
+      setTimeout(() => setAlert(false), 1500)
     }
   }
   return (
-    <Grid>
+    <Grid sx={{ margin: '150px 0' }}>
       <Paper elevation={20} style={paperStyle}>
         <Grid align="center" marginBottom={2}>
           <h2 style={headerStyle}>Account Register</h2>

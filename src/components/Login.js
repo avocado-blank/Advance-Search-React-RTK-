@@ -35,16 +35,17 @@ const Login = () => {
   }, [error])
 
   const submitHandler = () => {
-    if (phone.length > 11 || phone.length < 10) {
-      setAlert(true)
-    } else {
+    if (phone.length <= 11 && phone.length > 6 && Number.isInteger(phone)) {
       dispatch(LoginApi(userdata))
       setAlert(false)
+    } else {
+      setAlert(true)
+      setTimeout(() => setAlert(false), 1500)
     }
   }
   console.log(items?.otp)
   return (
-    <Grid>
+    <Grid sx={{ margin: '200px 0' }}>
       <Paper elevation={20} style={paperStyle}>
         <Grid align="center" marginBottom={2}>
           <h2 style={headerStyle}>Account Login</h2>
@@ -60,6 +61,7 @@ const Login = () => {
             value={phone}
             autoComplete="off"
             required
+            type="tel"
             onChange={(e) => {
               setPhone(e.target.value)
               dispatch(setphone(e.target.value))
@@ -69,12 +71,6 @@ const Login = () => {
             <Alert severity="error">
               <AlertTitle>Note</AlertTitle>
               Please Type Correct PhoneNumber
-            </Alert>
-          )}
-          {items && items.error && (
-            <Alert severity="error">
-              <AlertTitle>Note</AlertTitle>
-              {items.message}
             </Alert>
           )}
           <Link to="/register">

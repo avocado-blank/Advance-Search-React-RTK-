@@ -28,9 +28,7 @@ const Total = () => {
           <Link to="/detail">
             <Button
               variant="contained"
-              disabled={
-                totalStatus === 'pending' || total?.total === 0 ? true : false
-              }
+              disabled={totalStatus === 'pending' ? true : false}
               sx={{
                 position: 'absolute',
                 right: 155,

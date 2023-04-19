@@ -2,7 +2,6 @@ import * as React from 'react'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import { Container, Stack } from '@mui/material'
-import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1'
 import { Link } from 'react-router-dom'
 
 export default function Navbar() {
@@ -34,23 +33,7 @@ export default function Navbar() {
               variant="outlined"
               sx={{ color: '#078C95', fontWeight: 'bold' }}
             >
-              Login
-            </Button>
-            <Button
-              color="inherit"
-              variant="contained"
-              sx={{
-                color: 'white',
-                fontWeight: 'bold',
-                backgroundColor: '#078C95',
-                '&:hover': {
-                  backgroundColor: '#078C95',
-                  borderColor: '#078C95',
-                },
-              }}
-              endIcon={<PersonAddAlt1Icon />}
-            >
-              Register
+              Logout
             </Button>
           </Stack>
         </Stack>
@@ -74,20 +57,20 @@ export default function Navbar() {
           >
             Home
           </Button>
-          <Link to='/'>
-          <Button
-            sx={{
-              color: 'black',
-              fontWeight: 'bold',
-              borderRadius: 0,
-              borderBottom: '3px solid #078C95',
-              '&:hover': {
-                color: '#078C95',
-              },
-            }}
-          >
-            Find Cars
-          </Button>
+          <Link to="/">
+            <Button
+              sx={{
+                color: 'black',
+                fontWeight: 'bold',
+                borderRadius: 0,
+                borderBottom: '3px solid #078C95',
+                '&:hover': {
+                  color: '#078C95',
+                },
+              }}
+            >
+              Find Cars
+            </Button>
           </Link>
           <Button
             sx={{

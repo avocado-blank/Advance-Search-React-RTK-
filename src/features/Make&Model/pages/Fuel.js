@@ -24,7 +24,16 @@ const Fuel = ({ fuelChecked, setFuelChecked }) => {
 
   //Hook
   useEffect(() => {
-    dispatch(FuelApi())
+    if (localStorage.getItem('data')) {
+      const local = JSON.parse(localStorage.getItem('data'))
+      let token = local?.data.auth_token
+      let id = local?.data.id
+      let data = {
+        token,
+        id,
+      }
+      dispatch(FuelApi(data))
+    }
   }, [])
 
   useEffect(() => {

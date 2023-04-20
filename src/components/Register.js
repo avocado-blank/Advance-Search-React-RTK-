@@ -9,22 +9,20 @@ import {
   Alert,
   AlertTitle,
 } from '@mui/material'
-import { RegisterUserApi, resetDefault } from '../features/Auth/RegisterSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { setphone } from '../features/Auth/CheckOTPSlice'
+import { RegisterApi } from '../features/Auth/RegisterApi'
+import { resetDefault, setphone } from '../features/Auth/AuthSlice'
 
 const Register = () => {
   const paperStyle = { padding: '30px 20px', width: 300, margin: '20px auto' }
   const headerStyle = { margin: 0 }
   const dispatch = useDispatch()
-
+  const { error, status } = useSelector((store) => store.Auth)
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [alert, setAlert] = useState(false)
-  const { items, error } = useSelector((store) => store.userReg)
-  console.log(items?.otp)
-  const userdata = {
+  const registerData = {
     name,
     phone,
   }
@@ -39,8 +37,8 @@ const Register = () => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    if (phone.length <= 11 && phone.length > 6 && Number.isInteger(phone)) {
-      dispatch(RegisterUserApi(userdata))
+    if (phone.length < 12 && phone.length > 6) {
+      dispatch(RegisterApi(registerData))
       setAlert(false)
     } else {
       setAlert(true)
@@ -87,7 +85,12 @@ const Register = () => {
                 Please Type Correct PhoneNumber
               </Alert>
             )}
-            <Button type="submit" variant="contained" color="primary">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={status === 'pending' ? true : false}
+            >
               Create Account
             </Button>
           </Stack>

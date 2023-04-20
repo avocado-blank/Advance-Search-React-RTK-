@@ -23,8 +23,6 @@ import Power from './features/Make&Model/pages/Power'
 import CO2 from './components/CO2'
 import { useState } from 'react'
 import Total from './components/Total'
-import { Route, Routes, Navigate, BrowserRouter } from 'react-router-dom'
-import CarDetail from './components/CarDetail'
 
 function Main() {
   //State()

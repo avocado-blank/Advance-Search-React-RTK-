@@ -40,11 +40,33 @@ const Power = ({
 
   useEffect(() => {
     if (selectedValue === 'hp') {
-      dispatch(PowerApi(1))
+      if (localStorage.getItem('data')) {
+        const local = JSON.parse(localStorage.getItem('data'))
+        let token = local?.data.auth_token
+        let id = local?.data.id
+        let data = {
+          token,
+          id,
+          powerid: 1,
+        }
+
+        dispatch(PowerApi(data))
+      }
       setFromValuePower('Any')
       setToValuePower('Any')
     } else if (selectedValue === 'kw') {
-      dispatch(PowerApi(2))
+      if (localStorage.getItem('data')) {
+        const local = JSON.parse(localStorage.getItem('data'))
+        let token = local?.data.auth_token
+        let id = local?.data.id
+        let data = {
+          token,
+          id,
+          powerid: 2,
+        }
+
+        dispatch(PowerApi(data))
+      }
       setFromValuePower('Any')
       setToValuePower('Any')
     }

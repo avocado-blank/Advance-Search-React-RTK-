@@ -42,7 +42,16 @@ const Car = ({ selectModel, setSelectModel, selectValue, setSelectValue }) => {
     dispatch(setModel(modelName))
   }, [selectValue, selectModel])
   useEffect(() => {
-    dispatch(CarMakeApi())
+    if (localStorage.getItem('data')) {
+      const local = JSON.parse(localStorage.getItem('data'))
+      let token = local?.data.auth_token
+      let id = local?.data.id
+      let data = {
+        token,
+        id,
+      }
+      dispatch(CarMakeApi(data))
+    }
   }, [])
 
   //function
@@ -58,7 +67,16 @@ const Car = ({ selectModel, setSelectModel, selectValue, setSelectValue }) => {
   const handleChange = (e, value) => {
     setSelectValue(value)
     setSelectModel([])
-    dispatch(DetailCarApi(value?.id ? value.id : ''))
+    if (localStorage.getItem('data')) {
+      const local = JSON.parse(localStorage.getItem('data'))
+      let token = local?.data.auth_token
+      let id = local?.data.id
+      let data = {
+        token,
+        id,
+      }
+      dispatch(DetailCarApi(value?.id ? value.id : '', data))
+    }
   }
 
   const handleChangeModel = (e, value) => {

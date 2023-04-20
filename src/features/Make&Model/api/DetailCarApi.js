@@ -3,8 +3,15 @@ import axios from 'axios'
 import { BASE_API } from '../../../Globalapi'
 export const DetailCarApi = createAsyncThunk(
   'cars/searchCarMake',
-  async (id) => {
-    const response = await axios.get(`${BASE_API}/carmakes/${id}`)
+  async (id, data) => {
+    const response = await axios.get(
+      `${BASE_API}/user/carmakes/${id}?user_id=${data.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      },
+    )
     console.log(response.data)
     return response.data
   },

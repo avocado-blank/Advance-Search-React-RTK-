@@ -23,7 +23,16 @@ const Body = ({ bodyChecked, setBodyChecked }) => {
   const bodyName = bodyChecked.join(', ')
   //Hook
   useEffect(() => {
-    dispatch(BodyApi())
+    if (localStorage.getItem('data')) {
+      const local = JSON.parse(localStorage.getItem('data'))
+      let token = local?.data.auth_token
+      let id = local?.data.id
+      let data = {
+        token,
+        id,
+      }
+      dispatch(BodyApi(data))
+    }
   }, [])
 
   useEffect(() => {

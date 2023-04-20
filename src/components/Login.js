@@ -9,10 +9,10 @@ import {
   Alert,
   AlertTitle,
 } from '@mui/material'
-import { LoginApi, resetDefault } from '../features/Auth/LoginSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { setphone } from '../features/Auth/CheckOTPSlice'
+import { LoginApi } from '../features/Auth/LoginApi'
+import { resetDefault, setphone } from '../features/Auth/AuthSlice'
 
 const Login = () => {
   const paperStyle = { padding: '30px 20px', width: 300, margin: '20px auto' }
@@ -21,12 +21,11 @@ const Login = () => {
 
   const [phone, setPhone] = useState('')
   const [alert, setAlert] = useState(false)
-  const { items, error } = useSelector((store) => store.userLog)
+  const { error, status } = useSelector((store) => store.Auth)
   const navigate = useNavigate()
-  const userdata = {
+  const loginData = {
     phone: phone,
   }
-  console.log(phone)
   useEffect(() => {
     if (!error) {
       navigate('/OTP')
@@ -35,15 +34,14 @@ const Login = () => {
   }, [error])
 
   const submitHandler = () => {
-    if (phone.length <= 11 && phone.length > 6 && Number.isInteger(phone)) {
-      dispatch(LoginApi(userdata))
+    if (phone.length < 12 && phone.length > 6) {
+      dispatch(LoginApi(loginData))
       setAlert(false)
     } else {
       setAlert(true)
       setTimeout(() => setAlert(false), 1500)
     }
   }
-  console.log(items?.otp)
   return (
     <Grid sx={{ margin: '200px 0' }}>
       <Paper elevation={20} style={paperStyle}>
@@ -76,7 +74,12 @@ const Login = () => {
           <Link to="/register">
             <Typography>Create an account?</Typography>
           </Link>
-          <Button onClick={submitHandler} variant="contained" color="primary">
+          <Button
+            onClick={submitHandler}
+            variant="contained"
+            color="primary"
+            disabled={status === 'pending' ? true : false}
+          >
             Log in
           </Button>
         </Stack>

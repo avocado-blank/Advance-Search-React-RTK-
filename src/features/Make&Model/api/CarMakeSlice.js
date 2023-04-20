@@ -145,7 +145,7 @@ const CarMakeReducer = createSlice({
       console.log(payload)
     })
     builder.addCase(PowerApi.fulfilled, (state, { payload }) => {
-      state.power = payload.data.value
+      state.power = payload.data?.value
       // console.log(payload)
     })
     builder.addCase(TotalApi.pending, (state, { payload }) => {

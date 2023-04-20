@@ -5,10 +5,9 @@ import OTPpage from './components/OTPpage'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import PrivateRoutes from './PrivateRoute'
-import { storeToken } from './features/Auth/CheckOTPSlice'
+import { storeToken } from './features/Auth/AuthSlice'
 function Layout() {
-  const { token } = useSelector((store) => store.OTPCheck)
-  // console.log(token)
+  const { token } = useSelector((store) => store.Auth)
   const currentTime = new Date().getTime()
   const dispatch = useDispatch()
   useEffect(() => {
@@ -16,8 +15,6 @@ function Layout() {
       const local = JSON.parse(localStorage.getItem('data'))
       let expiredTime = local?.data.token_expired_at
       expiredTime = new Date(expiredTime).getTime()
-      // console.log('current' + currentTime)
-      // console.log(expiredTime)
       currentTime < expiredTime && dispatch(storeToken(local))
     }
   }, [token, currentTime, dispatch])

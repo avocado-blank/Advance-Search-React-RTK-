@@ -1,12 +1,12 @@
 import { Button, Paper, Stack, TextField, Typography } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { CheckOTPApi, resetDefault } from '../features/Auth/CheckOTPSlice'
 import { useNavigate } from 'react-router-dom'
+import { CheckOTPApi } from '../features/Auth/CheckOTPApi'
+import { resetDefault } from '../features/Auth/AuthSlice'
 
 const OTPpage = () => {
-  const { phone } = useSelector((store) => store.OTPCheck)
-  const { items, error } = useSelector((store) => store.OTPCheck)
+  const { error, status, phone } = useSelector((store) => store.Auth)
   const dispatch = useDispatch()
   const [firstValue, setFirstValue] = useState('')
   const [secondValue, setSecondValue] = useState('')
@@ -21,9 +21,8 @@ const OTPpage = () => {
   const fifthRef = useRef(null)
   const sixthRef = useRef(null)
   const navigate = useNavigate()
-
   let OTPName = `${firstValue}${secondValue}${thirdValue}${fourthValue}${fifthValue}${sixthValue}`
-  const userdata = {
+  const checkData = {
     phone: phone,
     otp: OTPName,
   }
@@ -82,7 +81,7 @@ const OTPpage = () => {
     }
   }
   const submitHandler = () => {
-    dispatch(CheckOTPApi(userdata))
+    dispatch(CheckOTPApi(checkData))
   }
   useEffect(() => {
     if (!error) {
@@ -90,7 +89,6 @@ const OTPpage = () => {
       dispatch(resetDefault())
     }
   }, [error, dispatch, navigate])
-  console.log(items)
 
   return (
     <Paper
@@ -201,6 +199,7 @@ const OTPpage = () => {
           variant="contained"
           color="primary"
           onClick={submitHandler}
+          disabled={status === 'pending' ? true : false}
         >
           Log In
         </Button>

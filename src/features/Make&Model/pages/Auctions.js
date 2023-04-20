@@ -17,8 +17,9 @@ import { setAution } from '../api/CarMakeSlice'
 const Auction = ({ auctionChecked, setAuctionChecked }) => {
   //Variabels
   const { auctions, status } = useSelector((store) => store.carList)
+  const { user_id, token } = useSelector((store) => store.Auth)
   const [open, setOpen] = useState(false)
-
+  let data = { id: user_id, token: token }
   const dispatch = useDispatch()
   const auctionName = auctionChecked.join(', ')
 
@@ -27,7 +28,7 @@ const Auction = ({ auctionChecked, setAuctionChecked }) => {
     dispatch(setAution(auctionName))
   }, [auctionChecked])
   useEffect(() => {
-    dispatch(AuctionApi())
+    dispatch(AuctionApi(data))
   }, [])
 
   //functions

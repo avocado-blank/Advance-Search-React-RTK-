@@ -11,7 +11,16 @@ const Total = () => {
   )
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(TotalApi(data))
+    if (localStorage.getItem('data')) {
+      const local = JSON.parse(localStorage.getItem('data'))
+      let token = local?.data.auth_token
+      let id = local?.data.id
+      let authdata = {
+        token,
+        id,
+      }
+      dispatch(TotalApi(data, authdata))
+    }
   }, [data])
   //log
   return (

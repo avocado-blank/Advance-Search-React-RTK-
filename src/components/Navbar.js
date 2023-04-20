@@ -2,9 +2,29 @@ import * as React from 'react'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import { Container, Stack } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { LogoutApi } from '../features/Auth/LogoutApi'
 
 export default function Navbar() {
+  const { items, status } = useSelector((store) => store.Auth)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const clickHandler = () => {
+    if (localStorage.getItem('data')) {
+      const local = JSON.parse(localStorage.getItem('data'))
+      let token = local?.data.auth_token
+      let id = local?.data.id
+      let logoutData = {
+        token,
+        id,
+      }
+      console.log(logoutData)
+      dispatch(LogoutApi(logoutData))
+      navigate('/login')
+      localStorage.clear()
+    }
+  }
   return (
     <Box
       sx={{
@@ -32,6 +52,8 @@ export default function Navbar() {
               color="inherit"
               variant="outlined"
               sx={{ color: '#078C95', fontWeight: 'bold' }}
+              onClick={clickHandler}
+              disabled={status === 'pending' ? true : false}
             >
               Logout
             </Button>

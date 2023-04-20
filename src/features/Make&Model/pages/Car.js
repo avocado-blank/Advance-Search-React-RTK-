@@ -74,8 +74,9 @@ const Car = ({ selectModel, setSelectModel, selectValue, setSelectValue }) => {
       let data = {
         token,
         id,
+        carid: value?.id ? value.id : '',
       }
-      dispatch(DetailCarApi(value?.id ? value.id : '', data))
+      dispatch(DetailCarApi(data))
     }
   }
 

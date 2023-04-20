@@ -18,8 +18,9 @@ const Total = () => {
       let authdata = {
         token,
         id,
+        data,
       }
-      dispatch(TotalApi(data, authdata))
+      dispatch(TotalApi(authdata))
     }
   }, [data])
   //log

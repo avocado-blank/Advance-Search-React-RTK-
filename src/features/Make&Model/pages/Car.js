@@ -19,11 +19,12 @@ import { DetailCarApi } from '../api/DetailCarApi'
 import { CheckBoxOutlineBlankOutlined } from '@mui/icons-material'
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
 import { setMake, setModel } from '../api/CarMakeSlice'
-import { TotalApi } from '../api/TotalApi'
 
 const Car = ({ selectModel, setSelectModel, selectValue, setSelectValue }) => {
   //Variabels
-  const { cars, detail, status } = useSelector((store) => store.carList)
+  const { cars, detail, status, detailStatus } = useSelector(
+    (store) => store.carList,
+  )
   const [open, setOpen] = useState(true)
 
   let displayName
@@ -133,7 +134,11 @@ const Car = ({ selectModel, setSelectModel, selectValue, setSelectValue }) => {
                   onChange={handleChangeModel}
                   options={modelsList ? modelsList : []}
                   disableCloseOnSelect
-                  disabled={selectValue ? false : true}
+                  disabled={
+                    detailStatus === null || detailStatus === 'pending'
+                      ? true
+                      : false
+                  }
                   getOptionLabel={(option) => option.name}
                   noOptionsText="No Models"
                   renderOption={(props, option, { selected }) => (

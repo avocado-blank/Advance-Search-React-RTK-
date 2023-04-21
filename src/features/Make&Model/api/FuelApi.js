@@ -2,8 +2,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { BASE_API } from '../../../Globalapi'
 export const FuelApi = createAsyncThunk('cars/fuel', async (data) => {
+  console.log(data.id)
+  console.log(data.token)
   const response = await axios.get(
-    `${BASE_API}/user/fueltypes?$user_id=${data.id}`,
+    `${BASE_API}/user/fueltypes?user_id=${data.id}`,
     {
       headers: {
         Authorization: `Bearer ${data.token}`,

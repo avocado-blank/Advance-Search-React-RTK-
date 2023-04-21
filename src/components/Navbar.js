@@ -6,8 +6,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { LogoutApi } from '../features/Auth/LogoutApi'
 
-export default function Navbar() {
-  const { items, status } = useSelector((store) => store.Auth)
+const Navbar = () => {
+  const { status } = useSelector((store) => store.Auth)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const clickHandler = () => {
@@ -119,3 +119,4 @@ export default function Navbar() {
     </Box>
   )
 }
+export default Navbar

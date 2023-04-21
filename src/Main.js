@@ -21,59 +21,64 @@ import Xtime from './components/Xtime'
 import Vat from './components/Vat'
 import Power from './features/Make&Model/pages/Power'
 import CO2 from './components/CO2'
-import { useState } from 'react'
 import Total from './components/Total'
 
-function Main() {
-  //State()
-  //make & model
-  const [selectValue, setSelectValue] = useState(null)
-  const [selectModel, setSelectModel] = useState([])
-  //Co2
-  const [Co2firstvalue, setCo2FirstValue] = useState('')
-  const [Co2secondvalue, setCo2SecondValue] = useState('')
-  //Colour
-  const [colourChecked, setColourChecked] = useState([])
-  //Counrty
-  const [countryChecked, setCountryChecked] = useState([])
-  //Make & Model
-  //Fuel
-  const [fuelChecked, setFuelChecked] = useState([])
-  //Transmission
-  const [tranmissionType, setTransmissionType] = useState([])
-  //Body
-  const [bodyChecked, setBodyChecked] = useState([])
-  //Mile
-  const [fromValueMile, setFromValueMile] = useState('Any')
-  const [toValueMile, setToValueMile] = useState('Any')
-  //Power
-  const [fromValuePower, setFromValuePower] = useState('Any')
-  const [toValuePower, setToValuePower] = useState('Any')
-  //Damage
-  const [damageChecked, setDamageChecked] = useState([])
-  //Equipment
-  const [equipmentChecked, setEquipmentChecked] = useState([])
-  //Emission
-  const [emissionChecked, setEmissionChecked] = useState([])
-  //Auction
-  const [auctionChecked, setAuctionChecked] = useState([])
-  //Seller
-  const [sellerChecked, setSellerChecked] = useState([])
-  //Xtime
-  const [xtimeCheckedValue, setXtimeCheckedValue] = useState('')
-  //Vat
-  const [vatCheckedValue, setVatCheckedValue] = useState('')
-  //Price
-  const [fromValuePrice, setFromValuePrice] = useState('Any')
-  const [toValuePrice, setToValuePrice] = useState('Any')
-  //Engine
-  const [fromValueEngine, setFromValueEngine] = useState('Any')
-  const [toValueEngine, setToValueEngine] = useState('Any')
-  //Reg
-  const [fromValueReg, setFromValueReg] = useState('Any')
-  const [toValueReg, setToValueReg] = useState('Any')
-  //Seat
-  const [seatChecked, setSeatChecked] = useState([])
+function Main({
+  selectValue,
+  selectModel,
+  setSelectValue,
+  setSelectModel,
+  fuelChecked,
+  setFuelChecked,
+  tranmissionType,
+  setTransmissionType,
+  fromValueMile,
+  toValueMile,
+  setFromValueMile,
+  setToValueMile,
+  fromValueReg,
+  toValueReg,
+  setFromValueReg,
+  setToValueReg,
+  fromValueEngine,
+  toValueEngine,
+  setFromValueEngine,
+  setToValueEngine,
+  fromValuePower,
+  toValuePower,
+  setFromValuePower,
+  setToValuePower,
+  bodyChecked,
+  setBodyChecked,
+  fromValuePrice,
+  toValuePrice,
+  setFromValuePrice,
+  setToValuePrice,
+  equipmentChecked,
+  setEquipmentChecked,
+  colourChecked,
+  setColourChecked,
+  seatChecked,
+  setSeatChecked,
+  countryChecked,
+  setCountryChecked,
+  sellerChecked,
+  setSellerChecked,
+  damageChecked,
+  setDamageChecked,
+  emissionChecked,
+  setEmissionChecked,
+  Co2firstvalue,
+  Co2secondvalue,
+  setCo2FirstValue,
+  setCo2SecondValue,
+  xtimeCheckedValue,
+  setXtimeCheckedValue,
+  auctionChecked,
+  setAuctionChecked,
+  vatCheckedValue,
+  setVatCheckedValue,
+}) {
   return (
     <>
       <Box sx={{ position: 'relative' }}>

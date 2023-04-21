@@ -44,6 +44,7 @@ const initialState = {
     engine_size: null, //done
   },
   status: null,
+  detailStatus: null,
 }
 const CarMakeReducer = createSlice({
   name: 'carsMake',
@@ -116,7 +117,12 @@ const CarMakeReducer = createSlice({
       state.status = 'success'
       console.log(payload)
     })
+    builder.addCase(DetailCarApi.pending, (state, { payload }) => {
+      state.detailStatus = 'pending'
+      console.log(payload)
+    })
     builder.addCase(DetailCarApi.fulfilled, (state, { payload }) => {
+      state.detailStatus = 'success'
       state.detail = payload.data
       console.log(payload)
     })

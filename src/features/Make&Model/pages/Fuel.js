@@ -1,4 +1,4 @@
-import { ExpandLess, ExpandMore } from '@mui/icons-material'
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import {
   Checkbox,
   Collapse,
@@ -8,62 +8,63 @@ import {
   ListItemButton,
   ListItemText,
   Typography,
-} from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { setFuelType } from '../api/CarMakeSlice'
-import { FuelApi } from '../api/FuelApi'
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setFuelType } from "../api/CarMakeSlice";
+import { FuelApi } from "../api/FuelApi";
+import { useLocation } from "react-router-dom";
 
 const Fuel = ({ fuelChecked, setFuelChecked }) => {
   //Variabels
-  const { fuel, status } = useSelector((store) => store.carList)
-  const [open, setOpen] = useState(true)
+  const { fuel, status } = useSelector((store) => store.carList);
+  const [open, setOpen] = useState(true);
 
-  const dispatch = useDispatch()
-  const fuelName = fuelChecked.join(', ')
-
+  const dispatch = useDispatch();
+  const fuelName = fuelChecked.join(", ");
+  const location = useLocation();
   //Hook
   useEffect(() => {
-    if (localStorage.getItem('data')) {
-      const local = JSON.parse(localStorage.getItem('data'))
-      let token = local?.data.auth_token
-      let id = local?.data.id
+    if (localStorage.getItem("data")) {
+      const local = JSON.parse(localStorage.getItem("data"));
+      let token = local?.data.auth_token;
+      let id = local?.data.id;
       let data = {
         token,
         id,
-      }
-      dispatch(FuelApi(data))
+      };
+      dispatch(FuelApi(data));
     }
-  }, [])
+  }, [location.pathname]);
 
   useEffect(() => {
-    dispatch(setFuelType(fuelName))
-  }, [fuelChecked])
+    dispatch(setFuelType(fuelName));
+  }, [fuelChecked]);
 
   //functions
   const handleClick = () => {
-    setOpen(!open)
-  }
+    setOpen(!open);
+  };
 
   const handleChangeCheck = (event) => {
-    const checkedValue = event.target.value
-    const isChecked = event.target.checked
+    const checkedValue = event.target.value;
+    const isChecked = event.target.checked;
     if (isChecked) {
-      setFuelChecked([...fuelChecked, checkedValue])
+      setFuelChecked([...fuelChecked, checkedValue]);
     } else {
-      setFuelChecked(fuelChecked.filter((value) => value !== checkedValue))
+      setFuelChecked(fuelChecked.filter((value) => value !== checkedValue));
     }
-  }
+  };
 
   //console
-  console.log(fuel)
+  console.log(fuel);
   // console.log(checked)
-  console.log(fuelName)
+  console.log(fuelName);
   return (
     <>
-      {status === 'success' ? (
+      {status === "success" ? (
         <List
-          sx={{ width: '100%', bgcolor: 'white', marginTop: 2 }}
+          sx={{ width: "100%", bgcolor: "white", marginTop: 2 }}
           component="nav"
           aria-labelledby="nested-list-subheader"
         >
@@ -73,7 +74,7 @@ const Fuel = ({ fuelChecked, setFuelChecked }) => {
                 Fuel Types
               </Typography>
             </ListItemText>
-            {!open ? <Typography>{fuelName}</Typography> : ''}
+            {!open ? <Typography>{fuelName}</Typography> : ""}
             {open ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={open} timeout="auto" unmountOnExit>
@@ -99,7 +100,7 @@ const Fuel = ({ fuelChecked, setFuelChecked }) => {
         <></>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Fuel
+export default Fuel;

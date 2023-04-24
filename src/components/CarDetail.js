@@ -1,28 +1,28 @@
-import { Box, Grid, Paper, Stack, Typography } from '@mui/material'
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import Navbar from './Navbar'
-import Car from '../features/Make&Model/pages/Car'
-import Fuel from '../features/Make&Model/pages/Fuel'
-import Transmission from './Transmission'
-import Mileage from './Mileage'
-import Registration from './Registration'
-import Engine from '../features/Make&Model/pages/Engine'
-import Power from '../features/Make&Model/pages/Power'
-import Body from '../features/Make&Model/pages/Body'
-import Price from './Price'
-import Equipment from './Equipment'
-import Color from './Color'
-import Seats from './Seats'
-import Country from './Country'
-import Seller from '../features/Make&Model/pages/Seller'
-import Damage from '../features/Make&Model/pages/Damage'
-import Emission from './Emission'
-import CO2 from './CO2'
-import Xtime from './Xtime'
-import Vat from './Vat'
-import Auctions from '../features/Make&Model/pages/Auctions'
-import { TotalApi } from '../features/Make&Model/api/TotalApi'
+import { Box, Grid, Paper, Stack, Typography } from "@mui/material";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Navbar from "./Navbar";
+import Car from "../features/Make&Model/pages/Car";
+import Fuel from "../features/Make&Model/pages/Fuel";
+import Transmission from "./Transmission";
+import Mileage from "./Mileage";
+import Registration from "./Registration";
+import Engine from "../features/Make&Model/pages/Engine";
+import Power from "../features/Make&Model/pages/Power";
+import Body from "../features/Make&Model/pages/Body";
+import Price from "./Price";
+import Equipment from "./Equipment";
+import Color from "./Color";
+import Seats from "./Seats";
+import Country from "./Country";
+import Seller from "../features/Make&Model/pages/Seller";
+import Damage from "../features/Make&Model/pages/Damage";
+import Emission from "./Emission";
+import CO2 from "./CO2";
+import Xtime from "./Xtime";
+import Vat from "./Vat";
+import Auctions from "../features/Make&Model/pages/Auctions";
+import { TotalApi } from "../features/Make&Model/api/TotalApi";
 const CarDetail = ({
   selectValue,
   selectModel,
@@ -79,31 +79,28 @@ const CarDetail = ({
   vatCheckedValue,
   setVatCheckedValue,
 }) => {
-  const { total, data, status, totalStatus } = useSelector(
-    (store) => store.carList,
-  )
-  const dispatch = useDispatch()
-  console.log(selectValue)
+  const { total, data, totalStatus } = useSelector((store) => store.carList);
+  const dispatch = useDispatch();
+  console.log(selectValue);
   useEffect(() => {
-    if (localStorage.getItem('data')) {
-      const local = JSON.parse(localStorage.getItem('data'))
-      let token = local?.data.auth_token
-      let id = local?.data.id
+    if (localStorage.getItem("data")) {
+      const local = JSON.parse(localStorage.getItem("data"));
+      let token = local?.data.auth_token;
+      let id = local?.data.id;
       let authdata = {
         token,
         id,
         data,
-      }
-      dispatch(TotalApi(authdata))
+      };
+      dispatch(TotalApi(authdata));
     }
-  }, [data])
+  }, [data]);
   return (
     <>
       <Navbar />
-      {/* {status === 'success' ? ( */}
-      <Box sx={{ width: '100%', margin: '10px auto' }}>
-        <Grid container spacing={3} sx={{ margin: '0 auto' }}>
-          <Grid item sx={{ width: '500px' }}>
+      <Box sx={{ margin: "10px 0 0 230px" }}>
+        <Grid container spacing={3} sx={{ margin: "0 auto" }}>
+          <Grid item sx={{ width: "500px" }}>
             <Car
               selectValue={selectValue}
               selectModel={selectModel}
@@ -190,20 +187,21 @@ const CarDetail = ({
               setVatCheckedValue={setVatCheckedValue}
             />
           </Grid>
-          {totalStatus === 'pending' ? (
-            <>Loading</>
+
+          {totalStatus === "pending" ? (
+            <Box sx={{ margin: "20px auto" }}>Loading</Box>
           ) : (
             <Grid item>
-              <Box sx={{ width: '900px', margin: '10px auto' }}>
+              <Box sx={{ width: "900px", margin: "10px auto" }}>
                 <Paper
                   sx={{
-                    height: '30px',
-                    padding: '10px 10px',
-                    fontWeight: 'bold',
-                    fontSize: '20px',
-                    color: '#A8C000',
-                    position: 'sticky',
-                    top: '5px',
+                    height: "30px",
+                    padding: "10px 10px",
+                    fontWeight: "bold",
+                    fontSize: "20px",
+                    color: "#A8C000",
+                    position: "sticky",
+                    top: "5px",
                     zIndex: 1,
                   }}
                 >
@@ -211,11 +209,11 @@ const CarDetail = ({
                 </Paper>
                 {total.data?.map((total) => (
                   <Paper
-                    sx={{ margin: '30px 0', padding: '5px' }}
+                    sx={{ margin: "30px 0", padding: "5px" }}
                     key={total.id}
                   >
                     <Typography
-                      sx={{ fontSize: '20px' }}
+                      sx={{ fontSize: "20px" }}
                     >{`${total.name}-${total.fuel_type}-${total.transmission}`}</Typography>
                     <Typography
                       sx={{ opacity: 0.8 }}
@@ -252,11 +250,8 @@ const CarDetail = ({
           )}
         </Grid>
       </Box>
-      {/* ) : ( */}
-      {/* <>Loading</> */}
-      {/* )} */}
     </>
-  )
-}
+  );
+};
 
-export default CarDetail
+export default CarDetail;

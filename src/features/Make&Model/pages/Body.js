@@ -1,4 +1,4 @@
-import { ExpandLess, ExpandMore } from '@mui/icons-material'
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import {
   Checkbox,
   Collapse,
@@ -8,60 +8,62 @@ import {
   ListItemButton,
   ListItemText,
   Typography,
-} from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { BodyApi } from '../api/BodyApi'
-import { setBodyType } from '../api/CarMakeSlice'
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BodyApi } from "../api/BodyApi";
+import { setBodyType } from "../api/CarMakeSlice";
+import { useLocation } from "react-router-dom";
 
 const Body = ({ bodyChecked, setBodyChecked }) => {
   //Variables
-  const { bodys, status } = useSelector((store) => store.carList)
-  const [open, setOpen] = useState(false)
+  const { bodys, status } = useSelector((store) => store.carList);
+  const [open, setOpen] = useState(false);
 
-  const dispatch = useDispatch()
-  const bodyName = bodyChecked.join(', ')
+  const dispatch = useDispatch();
+  const bodyName = bodyChecked.join(", ");
+  const location = useLocation();
   //Hook
   useEffect(() => {
-    if (localStorage.getItem('data')) {
-      const local = JSON.parse(localStorage.getItem('data'))
-      let token = local?.data.auth_token
-      let id = local?.data.id
+    if (localStorage.getItem("data")) {
+      const local = JSON.parse(localStorage.getItem("data"));
+      let token = local?.data.auth_token;
+      let id = local?.data.id;
       let data = {
         token,
         id,
-      }
-      dispatch(BodyApi(data))
+      };
+      dispatch(BodyApi(data));
     }
-  }, [])
+  }, [location.pathname]);
 
   useEffect(() => {
-    dispatch(setBodyType(bodyName))
-  }, [bodyChecked])
+    dispatch(setBodyType(bodyName));
+  }, [bodyChecked]);
 
   //functions
 
   const handleClick = () => {
-    setOpen(!open)
-  }
+    setOpen(!open);
+  };
 
   const handleChangeCheck = (event) => {
-    const checkedValue = event.target.value
-    const isChecked = event.target.checked
+    const checkedValue = event.target.value;
+    const isChecked = event.target.checked;
     if (isChecked) {
-      setBodyChecked([...bodyChecked, checkedValue])
+      setBodyChecked([...bodyChecked, checkedValue]);
     } else {
-      setBodyChecked(bodyChecked.filter((value) => value !== checkedValue))
+      setBodyChecked(bodyChecked.filter((value) => value !== checkedValue));
     }
-  }
+  };
 
   //log
-  console.log(bodys)
+  console.log(bodys);
   return (
     <>
-      {status === 'success' ? (
+      {status === "success" ? (
         <List
-          sx={{ width: '100%', bgcolor: 'white', marginTop: 2 }}
+          sx={{ width: "100%", bgcolor: "white", marginTop: 2 }}
           component="nav"
           aria-labelledby="nested-list-subheader"
         >
@@ -71,7 +73,7 @@ const Body = ({ bodyChecked, setBodyChecked }) => {
                 Body Type
               </Typography>
             </ListItemText>
-            {!open ? <Typography>{bodyName}</Typography> : ''}
+            {!open ? <Typography>{bodyName}</Typography> : ""}
             {open ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={open} timeout="auto" unmountOnExit>
@@ -97,7 +99,7 @@ const Body = ({ bodyChecked, setBodyChecked }) => {
         <></>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Body
+export default Body;

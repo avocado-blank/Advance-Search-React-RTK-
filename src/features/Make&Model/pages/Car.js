@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import List from '@mui/material/List'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemText from '@mui/material/ListItemText'
-import Collapse from '@mui/material/Collapse'
-import ExpandLess from '@mui/icons-material/ExpandLess'
-import ExpandMore from '@mui/icons-material/ExpandMore'
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import Collapse from "@mui/material/Collapse";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 import {
   Autocomplete,
   Box,
@@ -13,88 +13,89 @@ import {
   Stack,
   TextField,
   Typography,
-} from '@mui/material'
-import { CarMakeApi } from '../api/CarMakeApi'
-import { DetailCarApi } from '../api/DetailCarApi'
-import { CheckBoxOutlineBlankOutlined } from '@mui/icons-material'
-import CheckBoxIcon from '@mui/icons-material/CheckBox'
-import { setMake, setModel } from '../api/CarMakeSlice'
+} from "@mui/material";
+import { CarMakeApi } from "../api/CarMakeApi";
+import { DetailCarApi } from "../api/DetailCarApi";
+import { CheckBoxOutlineBlankOutlined } from "@mui/icons-material";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import { setMake, setModel } from "../api/CarMakeSlice";
+import { useLocation } from "react-router-dom";
 
 const Car = ({ selectModel, setSelectModel, selectValue, setSelectValue }) => {
   //Variabels
   const { cars, detail, status, detailStatus } = useSelector(
-    (store) => store.carList,
-  )
-  const [open, setOpen] = useState(true)
+    (store) => store.carList
+  );
+  const [open, setOpen] = useState(true);
 
-  let displayName
-  const modelsList = detail?.models
-  const icon = <CheckBoxOutlineBlankOutlined fontSize="small" />
-  const checkedIcon = <CheckBoxIcon fontSize="small" />
-  const dispatch = useDispatch()
-  const models = []
-  selectModel.forEach((model) => models.push(model.name))
-  const modelName = models?.join(', ')
-
+  let displayName;
+  const modelsList = detail?.models;
+  const icon = <CheckBoxOutlineBlankOutlined fontSize="small" />;
+  const checkedIcon = <CheckBoxIcon fontSize="small" />;
+  const dispatch = useDispatch();
+  const models = [];
+  selectModel.forEach((model) => models.push(model.name));
+  const modelName = models?.join(", ");
+  const location = useLocation();
   //Hook
 
   useEffect(() => {
-    dispatch(setMake(displayName))
-    dispatch(setModel(modelName))
-  }, [selectValue, selectModel])
+    dispatch(setMake(displayName));
+    dispatch(setModel(modelName));
+  }, [selectValue, selectModel]);
   useEffect(() => {
-    if (localStorage.getItem('data')) {
-      const local = JSON.parse(localStorage.getItem('data'))
-      let token = local?.data.auth_token
-      let id = local?.data.id
+    if (localStorage.getItem("data")) {
+      const local = JSON.parse(localStorage.getItem("data"));
+      let token = local?.data.auth_token;
+      let id = local?.data.id;
       let data = {
         token,
         id,
-      }
-      dispatch(CarMakeApi(data))
+      };
+      dispatch(CarMakeApi(data));
     }
-  }, [])
+  }, [location.pathname]);
 
   //function
   if (selectValue) {
-    displayName = selectValue.name
+    displayName = selectValue.name;
   } else {
-    displayName = ''
+    displayName = "";
   }
   const handleClick = () => {
-    setOpen(!open)
-  }
+    setOpen(!open);
+  };
 
   const handleChange = (e, value) => {
-    setSelectValue(value)
-    setSelectModel([])
-    if (localStorage.getItem('data')) {
-      const local = JSON.parse(localStorage.getItem('data'))
-      let token = local?.data.auth_token
-      let id = local?.data.id
+    setSelectValue(value);
+    setSelectModel([]);
+    if (localStorage.getItem("data")) {
+      const local = JSON.parse(localStorage.getItem("data"));
+      let token = local?.data.auth_token;
+      let id = local?.data.id;
       let data = {
         token,
         id,
-        carid: value?.id ? value.id : '',
-      }
-      dispatch(DetailCarApi(data))
+        carid: value?.id ? value.id : "",
+      };
+      dispatch(DetailCarApi(data));
     }
-  }
+  };
 
   const handleChangeModel = (e, value) => {
-    setSelectModel(typeof value === 'string' ? value.split(',') : value)
-  }
+    setSelectModel(typeof value === "string" ? value.split(",") : value);
+  };
 
   //log
   // console.log(cars)
-  console.log(displayName)
+  console.log(displayName);
   // console.log(modelName)
 
   return (
     <>
-      {status === 'success' ? (
+      {status === "success" ? (
         <List
-          sx={{ width: '100%', bgcolor: 'white', marginTop: 2 }}
+          sx={{ width: "100%", bgcolor: "white", marginTop: 2 }}
           component="nav"
           aria-labelledby="nested-list-subheader"
         >
@@ -104,7 +105,7 @@ const Car = ({ selectModel, setSelectModel, selectValue, setSelectValue }) => {
                 Make & Model
               </Typography>
             </ListItemText>
-            {!open ? <Typography>{displayName}</Typography> : ''}
+            {!open ? <Typography>{displayName}</Typography> : ""}
             {open ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={open} timeout="auto" unmountOnExit>
@@ -135,7 +136,7 @@ const Car = ({ selectModel, setSelectModel, selectValue, setSelectValue }) => {
                   options={modelsList ? modelsList : []}
                   disableCloseOnSelect
                   disabled={
-                    detailStatus === null || detailStatus === 'pending'
+                    detailStatus === null || detailStatus === "pending"
                       ? true
                       : false
                   }
@@ -155,7 +156,7 @@ const Car = ({ selectModel, setSelectModel, selectValue, setSelectValue }) => {
                   renderTags={(value, getTagProps) =>
                     value.map((option, index) => (
                       <React.Fragment key={option.id}>
-                        {option.id !== 0 && ', '}
+                        {option.id !== 0 && ", "}
                         {option.name}
                       </React.Fragment>
                     ))
@@ -172,7 +173,7 @@ const Car = ({ selectModel, setSelectModel, selectValue, setSelectValue }) => {
         <>Loading</>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Car
+export default Car;

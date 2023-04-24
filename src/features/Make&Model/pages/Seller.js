@@ -1,4 +1,4 @@
-import { ExpandLess, ExpandMore } from '@mui/icons-material'
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import {
   Checkbox,
   Collapse,
@@ -8,58 +8,59 @@ import {
   ListItemButton,
   ListItemText,
   Typography,
-} from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { setSeller } from '../api/CarMakeSlice'
-import { SellerApi } from '../api/SellerApi'
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSeller } from "../api/CarMakeSlice";
+import { SellerApi } from "../api/SellerApi";
+import { useLocation } from "react-router-dom";
 
 const Seller = ({ sellerChecked, setSellerChecked }) => {
   //Variabels
-  const { sellers, status } = useSelector((store) => store.carList)
-  const [open, setOpen] = useState(false)
+  const { sellers, status } = useSelector((store) => store.carList);
+  const [open, setOpen] = useState(false);
 
-  const dispatch = useDispatch()
-  const sellerName = sellerChecked.join(', ')
-
+  const dispatch = useDispatch();
+  const sellerName = sellerChecked.join(", ");
+  const location = useLocation();
   //Hook
   useEffect(() => {
-    dispatch(setSeller(sellerName))
-  }, [sellerChecked])
+    dispatch(setSeller(sellerName));
+  }, [sellerChecked]);
   useEffect(() => {
-    if (localStorage.getItem('data')) {
-      const local = JSON.parse(localStorage.getItem('data'))
-      let token = local?.data.auth_token
-      let id = local?.data.id
+    if (localStorage.getItem("data")) {
+      const local = JSON.parse(localStorage.getItem("data"));
+      let token = local?.data.auth_token;
+      let id = local?.data.id;
       let data = {
         token,
         id,
-      }
-      dispatch(SellerApi(data))
+      };
+      dispatch(SellerApi(data));
     }
-  }, [])
+  }, [location.pathname]);
 
   //functions
   const handleClick = () => {
-    setOpen(!open)
-  }
+    setOpen(!open);
+  };
 
   const handleChangeCheck = (event) => {
-    const checkedValue = event.target.value
-    const isChecked = event.target.checked
+    const checkedValue = event.target.value;
+    const isChecked = event.target.checked;
     if (isChecked) {
-      setSellerChecked([...sellerChecked, checkedValue])
+      setSellerChecked([...sellerChecked, checkedValue]);
     } else {
-      setSellerChecked(sellerChecked.filter((value) => value !== checkedValue))
+      setSellerChecked(sellerChecked.filter((value) => value !== checkedValue));
     }
-  }
+  };
 
   //console
   return (
     <>
-      {status === 'success' ? (
+      {status === "success" ? (
         <List
-          sx={{ width: '100%', bgcolor: 'white', marginTop: 2 }}
+          sx={{ width: "100%", bgcolor: "white", marginTop: 2 }}
           component="nav"
           aria-labelledby="nested-list-subheader"
         >
@@ -69,7 +70,7 @@ const Seller = ({ sellerChecked, setSellerChecked }) => {
                 Seller
               </Typography>
             </ListItemText>
-            {!open ? <Typography>{sellerName}</Typography> : ''}
+            {!open ? <Typography>{sellerName}</Typography> : ""}
             {open ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={open} timeout="auto" unmountOnExit>
@@ -95,7 +96,7 @@ const Seller = ({ sellerChecked, setSellerChecked }) => {
         <></>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Seller
+export default Seller;
